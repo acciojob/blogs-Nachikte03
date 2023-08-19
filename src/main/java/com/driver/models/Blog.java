@@ -15,7 +15,24 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String title;
-    String Content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public List<Image> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(List<Image> imageList) {
+        this.imageList = imageList;
+    }
+
+    String content;
     Date pubDate;
 
     @ManyToOne
@@ -23,7 +40,7 @@ public class Blog {
     User user;
 
     @OneToMany(targetEntity = Image.class,cascade = CascadeType.ALL)
-    List<Image> list;
+    List<Image> imageList;
 
     public int getId() {
         return id;
@@ -41,13 +58,7 @@ public class Blog {
         this.title = title;
     }
 
-    public String getContent() {
-        return Content;
-    }
 
-    public void setContent(String content) {
-        Content = content;
-    }
 
     public Date getPubDate() {
         return pubDate;
@@ -65,11 +76,5 @@ public class Blog {
         this.user = user;
     }
 
-    public List<Image> getList() {
-        return list;
-    }
 
-    public void setList(List<Image> list) {
-        this.list = list;
-    }
 }

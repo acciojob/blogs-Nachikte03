@@ -12,10 +12,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    String userName;
+    String username;
     String password;
     String firstName;
     String lastName;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @OneToMany(targetEntity = Blog.class,cascade = CascadeType.ALL)
     List<Blog> BlogList;
 
@@ -25,14 +34,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getPassword() {
