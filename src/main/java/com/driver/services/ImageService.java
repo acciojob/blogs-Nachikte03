@@ -2,6 +2,7 @@ package com.driver.services;
 
 import com.driver.models.*;
 import com.driver.repositories.*;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class ImageService {
         image.setDescription(description);
         image.setDimensions(dimensions);
         imageRepository2.save(image);
+        blog.getImageList().add(image);
+        blogRepository2.save(blog);
         return image;
     }
 
@@ -33,11 +36,7 @@ public class ImageService {
     public int countImagesInScreen(Integer id, String screenDimensions) {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
         Image image = imageRepository2.findById(id).get();
-        String curr = image.getDimensions();
-        int value = Integer.parseInt(curr.substring(0,1));
-        value = value * Integer.parseInt(curr.substring(2));
-        int total = Integer.parseInt(screenDimensions.substring(0,1));
-        total = total * Integer.parseInt(screenDimensions.substring(2));
-        return (total/value);
+        String p = image.getDescription();
+        return  ((Integer.parseInt(screenDimensions.substring(0,screenDimensions.indexOf('X'))))/Integer.parseInt(p.substring(0,p.indexOf('X')))) * (Integer.parseInt(screenDimensions.substring(screenDimensions.indexOf('X')+1,screenDimensions.length()))/Integer.parseInt(p.substring(p.indexOf('X')+1,p.length())));
     }
 }
